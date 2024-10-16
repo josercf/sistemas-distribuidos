@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "DiplomaGenerator": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

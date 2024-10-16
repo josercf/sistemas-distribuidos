@@ -396,3 +396,24 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Ignorar diretório MinIO (diplomas)
+diplomas/.minio.sys/
+
+# Ignorar arquivos e diretórios gerados pelo PostgreSQL
+pgdata/
+
+
+# Ignorar arquivos e diretórios gerados pelo MySQL
+mysqldata/
+
+# Ignorar arquivos de logs e dumps de banco de dados
+*.log
+
+*.dump
+
+# Ignorar builds de .NET e arquivos gerados
+bin/
+obj/
+app/build/
+app/publish/

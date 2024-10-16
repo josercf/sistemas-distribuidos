@@ -1,8 +1,7 @@
 # See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
-FROM mcr.microsoft.com/dotnet/runtime:8.0 AS base
-USER app
+FROM mcr.microsoft.com/dotnet/runtime:8.0 AS base  
 WORKDIR /app
 
 
@@ -25,4 +24,11 @@ RUN dotnet publish "./DiplomaGenerator.csproj" -c $BUILD_CONFIGURATION -o /app/p
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+# Install Chrome and its dependencies
+RUN apt-get update && apt-get install -y wget gnupg2
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+RUN apt-get update && apt-get install -y google-chrome-stable
+
 ENTRYPOINT ["dotnet", "DiplomaGenerator.dll"]

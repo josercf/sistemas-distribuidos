@@ -33,12 +33,12 @@ public class DiplomaProcessor
                                    .Replace("{{data_conclusao}}", diplomaData.DataConclusao.ToString("dd/MM/yyyy"));
 
         // Gerar PDF com PuppeteerSharp
-        var browserFetcher = new BrowserFetcher();
-        await browserFetcher.DownloadAsync();
-
+        //await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision);
         var browser = await Puppeteer.LaunchAsync(new LaunchOptions
         {
-            Headless = true
+            ExecutablePath = "/usr/bin/google-chrome-stable",
+            Headless = true,
+            Args = new[] { "--no-sandbox", "--disable-setuid-sandbox" }
         });
 
         var page = await browser.NewPageAsync();
@@ -72,8 +72,8 @@ public class DiplomaProcessor
             DataEmissao = DateTime.Now
         };
 
-        _context.Diplomas.Add(diploma);
-        await _context.SaveChangesAsync();
+        //_context.Diplomas.Add(diploma);
+        //await _context.SaveChangesAsync();
 
         Console.WriteLine($"Diploma gerado e salvo em {pdfFilePath}");
     }
